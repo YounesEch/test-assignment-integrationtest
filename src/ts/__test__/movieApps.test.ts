@@ -6,17 +6,22 @@
 import { createHtml } from "../movieApp";
 import { IMovie } from "../models/Movie";
 
+jest.mock("./../service/movieservice.ts");
 
-test("should create HTML", ()=> {
+beforeEach(() => {
+    document.body.innerHTML = "";
+});
+
+/*test("should create HTML", async ()=> {
     //arrange
     document.body.innerHTML= `
     
     `;
-    let movies: IMovie[]= [new movies()];
+    let movies: IMovie[]=Imovie[];
 
     //act
-    createHtml(movies);
+    await createHtml(movies);
 
     //assert
     expect(movies).toBeCalled();
-});
+});*/

@@ -21,10 +21,10 @@ export async function handleSubmit() {
   container.innerHTML = "";
 
   try {
-    movies = await getData(searchText);
+    movies = await getData(searchText); //använder oss utav en tjänst getDAta
 
     if (movies.length > 0) {
-      exports.createHtml(movies, container);
+      exports.createHtml(movies, container); //skapar filmer här
     } else {
       exports.displayNoResult(container);
     }
