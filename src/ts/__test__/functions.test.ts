@@ -20,6 +20,7 @@ test("shoud moviesort from A if correct", ()=>{
     //assert
 
     expect(result[0].Title).toBe(movies[0].Title);
+    expect(result[0].Title).toBe("Black Panther");
 });
 
 test("shoud moviesort descending if correct",  ()=>{
@@ -31,4 +32,5 @@ test("shoud moviesort descending if correct",  ()=>{
     //assert
 
     expect(result[1].Title).toBe(movies[1].Title);
+    expect(result[0].Title).toBe("Doctor Strange");
 })
