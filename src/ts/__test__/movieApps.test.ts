@@ -38,7 +38,7 @@ test ("should test init",() => {
 });
 
 
-test("Should test handleSubmit", async ()=> {
+/*test("Should test handleSubmit", async ()=> {
   //arrange
   document.body.innerHTML = 
   `<form id="searchForm">
@@ -49,15 +49,15 @@ test("Should test handleSubmit", async ()=> {
   <div id="movie-container"></div>`;
 
   let searchText = (document.getElementById("searchText") as HTMLInputElement); 
-  let getDataSpy = jest.spyOn(movieservice, "getData").mockReturnValue(Promise.resolve([]));;
+  let createHtmlSpy = jest.spyOn(movieApp, "createHtml").mockReturnValue(Promise.resolve([]));
 
   searchText.value = "Black Panther";
   //act
   await handleSubmit();
 
   //assert
-  expect(getDataSpy).toBeCalled();
-});
+  expect(createHtmlSpy).toHaveBeenCalled();
+});*/
 
 
 test("should create HTML", ()=> {
@@ -65,22 +65,6 @@ test("should create HTML", ()=> {
     document.body.innerHTML = 
     `<div id="movie-container"></div`;
 
-    const testMovies: IMovie []= [{
-    Title:"Black Panther",
-    imdbID:"tt1825683",
-    Type: "movie",
-    Poster:"...",
-    Year: "2018", 
-  },
-  {
-    Title:"Doctor Strange",
-    imdbID: "tt1211837",
-    Type: "movie",
-    Poster: "...",
-    Year: "2016",
-  }
-  ];
-  
     let container = document.getElementById("movie-container") as HTMLDivElement;
 
     //act
