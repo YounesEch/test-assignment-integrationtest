@@ -1,7 +1,7 @@
 import { IMovie } from "../../models/Movie";
 
 
-const testMovies: IMovie []= [{
+export const testMovies: IMovie []= [{
   Title:"Black Panther",
   imdbID:"tt1825683",
   Type: "movie",

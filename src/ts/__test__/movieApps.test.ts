@@ -1,27 +1,109 @@
-/**
-* @jest-enviroment jsdom
+/***
+* @jest-environment jsdom
 */
 
 
-import { createHtml } from "../movieApp";
+import { createHtml, displayNoResult, init, handleSubmit } from "../movieApp";
 import { IMovie } from "../models/Movie";
+import * as movieservice from "../services/movieservice";
+import * as movieApp from "../movieApp";
+import { testMovies } from "../services/__mocks__/movieservice";
 
-jest.mock("./../service/movieservice.ts");
+jest.mock("../services/movieservice");
 
 beforeEach(() => {
-    document.body.innerHTML = "";
+  document.body.innerHTML = ``;
 });
 
-/*test("should create HTML", async ()=> {
-    //arrange
-    document.body.innerHTML= `
+
+test ("should test init",() => {
+  //arrange
+  document.body.innerHTML = 
+  `<form id="searchForm">
+      <input type="text" id="searchText" placeholder="Skriv titel här"/>
+      <div id="movie-container"></div>
+    </form>`;
+
+    let form = document.getElementById("searchForm") as HTMLFormElement;
+    let spyOnHandleSubmit = jest.spyOn(movieApp, 'handleSubmit').mockReturnValue(new Promise<void>((resolve) => {
+      resolve();
+    }));
     
-    `;
-    let movies: IMovie[]=Imovie[];
+  //act
+  init();
+  form.submit();
+
+  //assert
+  expect(spyOnHandleSubmit).toHaveBeenCalled();
+});
+
+
+test("Should test handleSubmit", async ()=> {
+  //arrange
+  document.body.innerHTML = 
+  `<form id="searchForm">
+      <input type="text" id="searchText" placeholder="Skriv titel här" />
+      <button type="submit" id="search">Sök
+      </button>
+  </form>
+  <div id="movie-container"></div>`;
+
+  let searchText = (document.getElementById("searchText") as HTMLInputElement); 
+  let getDataSpy = jest.spyOn(movieservice, "getData").mockReturnValue(Promise.resolve([]));;
+
+  searchText.value = "Black Panther";
+  //act
+  await handleSubmit();
+
+  //assert
+  expect(getDataSpy).toBeCalled();
+});
+
+
+test("should create HTML", ()=> {
+    //arrange
+    document.body.innerHTML = 
+    `<div id="movie-container"></div`;
+
+    const testMovies: IMovie []= [{
+    Title:"Black Panther",
+    imdbID:"tt1825683",
+    Type: "movie",
+    Poster:"...",
+    Year: "2018", 
+  },
+  {
+    Title:"Doctor Strange",
+    imdbID: "tt1211837",
+    Type: "movie",
+    Poster: "...",
+    Year: "2016",
+  }
+  ];
+  
+    let container = document.getElementById("movie-container") as HTMLDivElement;
 
     //act
-    await createHtml(movies);
+    createHtml(testMovies, container);
 
     //assert
-    expect(movies).toBeCalled();
-});*/
+    expect(container.innerHTML).toContain("h3");
+    expect(container.innerHTML).toContain("img");
+    expect(container.innerHTML).toContain("div");
+});
+
+
+test ("should check displayNoResult", () => {
+  document.body.innerHTML = 
+  `<div id="movie-container"></div`;
+
+  //arrange
+  let container = document.getElementById("movie-container") as HTMLDivElement;
+
+  //act
+  displayNoResult(container);
+
+  //assert
+  expect(container.innerHTML).toContain('p');
+})
+

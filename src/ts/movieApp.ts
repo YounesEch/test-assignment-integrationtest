@@ -7,7 +7,7 @@ export const init = () => {
   let form = document.getElementById("searchForm") as HTMLFormElement;
   form.addEventListener("submit", (e: SubmitEvent) => {
     e.preventDefault();
-    handleSubmit();
+    exports.handleSubmit();
   });
 };
 
@@ -58,3 +58,4 @@ export const displayNoResult = (container: HTMLDivElement) => {
 
   container.appendChild(noMessage);
 };
+
